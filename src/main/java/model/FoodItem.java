@@ -1,41 +1,50 @@
 package model;
 
-import java.io.IOException;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+public class FoodItem {
 
-/**
- * Servlet implementation class FoodItem
- */
-@WebServlet("/FoodItem")
-public class FoodItem extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public FoodItem() {
-        super();
-        // TODO Auto-generated constructor stub
+    private int foodId;
+    private String foodName;
+    private double price;
+    private int quantity;
+
+    public FoodItem() {}
+
+    public FoodItem(int foodId, String foodName, double price, int quantity) {
+        this.foodId = foodId;
+        this.foodName = foodName;
+        this.price = price;
+        this.quantity = quantity;
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
+    public int getFoodId() {
+        return foodId;
+    }
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
+    public void setFoodId(int foodId) {
+        this.foodId = foodId;
+    }
 
+    public String getFoodName() {
+        return foodName;
+    }
+
+    public void setFoodName(String foodName) {
+        this.foodName = foodName;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
 }
