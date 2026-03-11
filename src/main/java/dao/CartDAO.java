@@ -5,22 +5,21 @@ import java.sql.PreparedStatement;
 
 import util.DBConnection;
 
-public class OrderDAO {
+public class CartDAO {
 
-    public void placeOrder(int userId, double totalAmount, String paymentMethod) {
+    public void addToCart(int userId, int foodId, int quantity) {
 
         try {
 
             Connection con = DBConnection.getConnection();
 
-            String query = "INSERT INTO orders(user_id,total_amount,payment_method,order_status) VALUES(?,?,?,?)";
+            String query = "INSERT INTO cart(user_id, food_id, quantity) VALUES(?,?,?)";
 
             PreparedStatement ps = con.prepareStatement(query);
 
             ps.setInt(1, userId);
-            ps.setDouble(2, totalAmount);
-            ps.setString(3, paymentMethod);
-            ps.setString(4, "placed");
+            ps.setInt(2, foodId);
+            ps.setInt(3, quantity);
 
             ps.executeUpdate();
 
