@@ -1,41 +1,62 @@
 package model;
 
-import java.io.IOException;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+public class Order {
 
-/**
- * Servlet implementation class Order
- */
-@WebServlet("/Order")
-public class Order extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public Order() {
-        super();
-        // TODO Auto-generated constructor stub
+    private int orderId;
+    private int userId;
+    private double totalAmount;
+    private String paymentMethod;
+    private String orderStatus;
+
+    public Order() {}
+
+    public Order(int orderId, int userId, double totalAmount,
+                 String paymentMethod, String orderStatus) {
+
+        this.orderId = orderId;
+        this.userId = userId;
+        this.totalAmount = totalAmount;
+        this.paymentMethod = paymentMethod;
+        this.orderStatus = orderStatus;
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
+    public int getOrderId() {
+        return orderId;
+    }
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
+    }
 
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public double getTotalAmount() {
+        return totalAmount;
+    }
+
+    public void setTotalAmount(double totalAmount) {
+        this.totalAmount = totalAmount;
+    }
+
+    public String getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
+
+    public String getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(String orderStatus) {
+        this.orderStatus = orderStatus;
+    }
 }

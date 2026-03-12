@@ -1,41 +1,38 @@
 package dao;
 
-import java.io.IOException;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
-/**
- * Servlet implementation class UserDAO
- */
-@WebServlet("/UserDAO")
-public class UserDAO extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public UserDAO() {
-        super();
-        // TODO Auto-generated constructor stub
+import util.DBConnection;
+
+public class UserDAO {
+
+    public String validateUser(String email, String password) {
+
+        String role = null;
+
+        try {
+
+            Connection con = DBConnection.getConnection();
+
+            String query = "SELECT role FROM users WHERE email=? AND password=?";
+
+            PreparedStatement ps = con.prepareStatement(query);
+
+            ps.setString(1, email);
+            ps.setString(2, password);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                role = rs.getString("role");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return role;
     }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
-
 }
