@@ -3,39 +3,39 @@ package controller;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 
-/**
- * Servlet implementation class OrderServlet
- */
-@WebServlet("/OrderServlet")
+import dao.OrderDAO;
+
+@WebServlet("/order")
 public class OrderServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public OrderServlet() {
-        super();
-        // TODO Auto-generated constructor stub
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        try {
+
+            // Get session
+            HttpSession session = request.getSession();
+
+            // Example: user stored during login
+            int userId = (int) session.getAttribute("userId");
+
+            // Get payment method from cart.jsp
+            String paymentMethod = request.getParameter("payment");
+
+            // Example total amount
+            double totalAmount = Double.parseDouble(request.getParameter("totalAmount"));
+
+            // DAO call
+            OrderDAO orderDAO = new OrderDAO();
+            orderDAO.placeOrder(userId, totalAmount, paymentMethod);
+
+            // Redirect to orders page
+            response.sendRedirect("student/orders.jsp");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
-
 }

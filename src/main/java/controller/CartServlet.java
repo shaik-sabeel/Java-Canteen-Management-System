@@ -1,41 +1,33 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 
-/**
- * Servlet implementation class CartServlet
- */
-@WebServlet("/CartServlet")
+@WebServlet("/cart")
 public class CartServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public CartServlet() {
-        super();
-        // TODO Auto-generated constructor stub
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        String foodId = request.getParameter("foodId");
+
+        HttpSession session = request.getSession();
+
+        List<String> cart = (List<String>) session.getAttribute("cart");
+
+        if(cart == null){
+            cart = new ArrayList<>();
+        }
+
+        cart.add(foodId);
+
+        session.setAttribute("cart", cart);
+
+        response.sendRedirect("student/cart.jsp");
     }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
-
 }
